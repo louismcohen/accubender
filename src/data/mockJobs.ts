@@ -113,8 +113,42 @@ export const mockFailedInspection = {
 };
 
 // Mock rework suggestions based on ML
-export const mockReworkSuggestions = {
-	"bend-2": -3.5, // Adjust bend 2 by -3.5 degrees
-	rationale:
-		"Based on historical data with this material and thickness, the machine tends to overbend by 3-4 degrees on 90° angles. Compensation of -3.5° recommended.",
-};
+/**
+ * Generate fake AI rework suggestions based on material, diameter, and failed bends.
+ */
+export function generateMockReworkSuggestions(
+	material: string,
+	diameter: number,
+	failedResults: {
+		bendPosition: number;
+		expected: number;
+		actual: number;
+		deviation: number;
+		pass: boolean;
+	}[],
+): { adjustments: Record<string, number>; rationale: string } {
+	const adjustments: Record<string, number> = {};
+
+	// Pick a base adjustment by material
+	const baseAdjustment = material.toLowerCase().includes("stainless steel")
+		? -3.5
+		: material.toLowerCase().includes("aluminum")
+			? -2.0
+			: material.toLowerCase().includes("titanium")
+				? -1.5
+				: material.toLowerCase().includes("copper")
+					? -2.5
+					: -3.0;
+
+	// Normalize by diameter (using 12.7 mm as a reference)
+	for (const result of failedResults) {
+		const factor = 12.7 / diameter;
+		adjustments[`bend-${result.bendPosition}`] = Number.parseFloat(
+			(baseAdjustment * factor).toFixed(1),
+		);
+	}
+
+	const rationale = `Based on historical data, ${material} tubes around ${diameter} mm tend to overbend; adjustments have been scaled accordingly.`;
+
+	return { adjustments, rationale };
+}

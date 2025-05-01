@@ -42,7 +42,7 @@ function App() {
 						<Route path="/rework/:jobId" element={<ReworkJob />} />
 					</Routes>
 				</Layout>
-				<Toaster />
+				{/* <Toaster /> */}
 			</JobsProvider>
 		</ThemeProvider>
 	);

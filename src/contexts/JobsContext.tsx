@@ -6,7 +6,12 @@ import {
 	type ReactNode,
 } from "react";
 import { toast } from "@/hooks/use-toast";
-import type { Job, JobStatus, JobPriority } from "@/types/job";
+import type {
+	Job,
+	JobStatus,
+	JobPriority,
+	InspectionResult,
+} from "@/types/job";
 import { mockJobs } from "@/data/mockJobs";
 
 interface JobsContextType {
@@ -14,7 +19,11 @@ interface JobsContextType {
 	activeJob: Job | null;
 	selectJob: (jobId: string) => void;
 	skipJob: (jobId: string) => void;
-	completeJob: (jobId: string, success: boolean) => void;
+	completeJob: (
+		jobId: string,
+		success: boolean,
+		inspectionResults: InspectionResult[],
+	) => void;
 	updateJobStatus: (jobId: string, status: JobStatus) => void;
 	reworkJob: (jobId: string, adjustments: Record<string, number>) => void;
 }
@@ -66,16 +75,26 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 	};
 
 	// Mark a job as complete
-	const completeJob = (jobId: string, success: boolean) => {
+	const completeJob = (
+		jobId: string,
+		success: boolean,
+		inspectionResults: InspectionResult[],
+	) => {
+		console.log("completeJob", { jobId, success });
 		setJobs((prev) =>
 			prev.map((job) =>
 				job.id === jobId
-					? { ...job, status: success ? "completed" : "failed" }
+					? {
+							...job,
+							status: success ? "completed" : "failed",
+							inspectionResults,
+						}
 					: job,
 			),
 		);
 
 		if (success) {
+			console.log("success toast");
 			toast({
 				title: "Job Completed",
 				description:
@@ -83,6 +102,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 				variant: "default",
 			});
 		} else {
+			console.log("fail toast");
 			toast({
 				title: "Inspection Failed",
 				description:

@@ -153,7 +153,7 @@ export default function InspectionPending() {
 			}, 6000);
 
 			// Randomly decide if this inspection should fail
-			setFailInspection(Math.random() > 0.7);
+			// setFailInspection(Math.random() > 0.7);
 
 			return () => {
 				clearTimeout(tubeTimer);
@@ -213,8 +213,8 @@ export default function InspectionPending() {
 							{(inspectionState === InspectionState.PREPARING ||
 								inspectionState === InspectionState.SCANNING ||
 								inspectionState === InspectionState.ANALYZING) && (
-								<div className="space-y-2 max-w-md mx-auto">
-									<Progress value={progress} className="h-3" />
+								<div className="space-y-2 mx-auto flex flex-col justify-center items-center">
+									<Progress value={progress} className="h-3 max-w-md" />
 									<p>{getProgressDescription(inspectionState)}</p>
 								</div>
 							)}

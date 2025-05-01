@@ -139,13 +139,6 @@ export default function JobInProgress() {
 								<p className="text-green-700 mb-6">
 									All bends have been completed successfully.
 								</p>
-								<Button
-									onClick={handleMoveToInspection}
-									className="bg-green-600 hover:bg-green-700 text-white"
-								>
-									<MoveRight className="mr-2 h-4 w-4" />
-									Move to Inspection
-								</Button>
 							</div>
 						) : (
 							<>
@@ -277,7 +270,11 @@ export default function JobInProgress() {
 						</Button>
 
 						{allBendsComplete && (
-							<Button onClick={handleMoveToInspection}>
+							<Button
+								onClick={handleMoveToInspection}
+								className="bg-green-600 hover:bg-green-700 text-white"
+							>
+								<MoveRight className="mr-2 h-4 w-4" />
 								Move to Inspection
 							</Button>
 						)}

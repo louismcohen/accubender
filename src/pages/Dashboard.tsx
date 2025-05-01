@@ -157,7 +157,7 @@ export default function Dashboard() {
 										onClick={() => startJob(job)}
 									>
 										<div className="flex flex-1 gap-3 justify-center items-center">
-											<div className="rounded-full flex flex-shrink h-10 w-10 justify-center items-center bg-muted border border-gray-900">
+											<div className="rounded-full flex flex-shrink h-10 w-10 justify-center items-center bg-muted border border-gray-900/20">
 												{index + 1}
 											</div>
 											<div className="flex-1">
