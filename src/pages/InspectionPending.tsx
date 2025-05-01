@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { useJobs } from "@/contexts/JobsContext";
 import { useToast } from "@/hooks/use-toast";
 import JobDetails from "@/components/JobDetails";
-// import { mockFailedInspection } from "@/data/mockJobs";
+import { mockFailedInspection } from "@/data/mockJobs";
 
 enum InspectionState {
 	WAITING = "waiting",
@@ -50,7 +50,9 @@ export default function InspectionPending() {
 		switch (inspectionState) {
 			case InspectionState.WAITING:
 				if (tubeDetected && doorClosed) {
-					setInspectionState(InspectionState.PREPARING);
+					setTimeout(() => {
+						setInspectionState(InspectionState.PREPARING);
+					}, 1500);
 				}
 				break;
 

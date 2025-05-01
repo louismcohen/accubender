@@ -109,12 +109,11 @@ export default function JobInProgress() {
 					<CardHeader>
 						<div className="flex items-center justify-between">
 							<div>
-								<CardTitle>Bending In Progress</CardTitle>
-								<CardDescription>
+								<CardTitle>
 									{allBendsComplete
 										? "All bends completed successfully"
 										: `Bend ${currentBendIndex + 1} of ${job.bends.length}`}
-								</CardDescription>
+								</CardTitle>
 							</div>
 
 							<Badge
