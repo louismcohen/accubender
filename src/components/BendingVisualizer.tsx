@@ -23,14 +23,22 @@ export default function BendingVisualizer({
 		let cumulativeX = 250; // start position
 		let cumulativeY = 100; // start position
 		let currentRotation = 0;
+		const scaleFactor = 1.5;
 
 		// Start path
 		let currentPath = `M ${cumulativeX} ${cumulativeY}`;
 
+		if (bends.length > 0) {
+			const leadIn = bends[0].length / scaleFactor;
+			const x1 = cumulativeX + leadIn;
+			currentPath += ` L ${x1} ${cumulativeY}`;
+			cumulativeX = x1;
+		}
+
 		// For each bend, calculate the new path
 		bends.forEach((bend, index) => {
 			// Scale factor for visualization
-			const scaleFactor = 1.5;
+
 			const length = bend.length / scaleFactor;
 
 			if (index < currentBendIndex) {

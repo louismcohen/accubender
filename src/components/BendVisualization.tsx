@@ -26,15 +26,26 @@ export default function BendVisualization({
 		let cumulativeY = 100; // start position
 		let expectedRotation = 0;
 		let actualRotation = 0;
+		const scaleFactor = 1.5;
 
 		// Start paths
 		expectedPath.push(`M ${cumulativeX} ${cumulativeY}`);
 		actualPath.push(`M ${cumulativeX} ${cumulativeY}`);
 
+		if (bends.length > 0) {
+			const scaleFactor = 1.5;
+			const leadIn = bends[0].length / scaleFactor;
+			// horizontal line at 0°
+			const x1 = cumulativeX + leadIn;
+			expectedPath.push(`L ${x1} ${cumulativeY}`);
+			actualPath.push(`L ${x1} ${cumulativeY}`);
+			cumulativeX = x1;
+		}
+
 		// For each bend, calculate the paths
+		// biome-ignore lint/complexity/noForEach: <explanation>
 		bends.forEach((bend) => {
 			// Scale factor for visualization
-			const scaleFactor = 1.5;
 			const length = bend.length / scaleFactor;
 			const result = findResult(bend.position);
 
@@ -186,7 +197,7 @@ export default function BendVisualization({
 										Bend {failure.bendPosition}
 									</text>
 									<text x={x + 15} y={y + 5} className="text-xs fill-current">
-										Δ {Math.abs(failure.deviation).toFixed(1)}°
+										Δ {failure.deviation.toFixed(1)}°
 									</text>
 								</g>
 							);

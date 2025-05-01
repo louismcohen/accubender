@@ -52,12 +52,11 @@ export default function Dashboard() {
 				const valueA = priorityValues[a.priority];
 				const valueB = priorityValues[b.priority];
 				return sortOrder === "desc" ? valueB - valueA : valueA - valueB;
-			} else {
-				// Sort by due date
-				const dateA = new Date(a.dueDate).getTime();
-				const dateB = new Date(b.dueDate).getTime();
-				return sortOrder === "desc" ? dateA - dateB : dateB - dateA;
 			}
+			// Sort by due date
+			const dateA = new Date(a.dueDate).getTime();
+			const dateB = new Date(b.dueDate).getTime();
+			return sortOrder === "desc" ? dateA - dateB : dateB - dateA;
 		});
 
 	// Start the next job (highest priority)
