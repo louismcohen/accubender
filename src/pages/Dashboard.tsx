@@ -163,7 +163,9 @@ export default function Dashboard() {
 											<div className="flex-1">
 												<div className="flex items-center gap-2">
 													<span className="font-medium">{job.partNumber}</span>
-													<Badge className={`job-priority-${job.priority}`}>
+													<Badge
+														className={`job-priority-${job.priority} capitalize`}
+													>
 														{job.priority}
 													</Badge>
 												</div>

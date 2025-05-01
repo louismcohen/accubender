@@ -9,6 +9,7 @@ import {
 	ArrowRight,
 	Wrench,
 	QrCode,
+	Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,6 +40,7 @@ export default function InspectionResults() {
 		InspectionResult[]
 	>([]);
 	const [isPrinting, setIsPrinting] = useState(false);
+	const [isPrinted, setIsPrinted] = useState(false);
 
 	const job = jobs.find((j) => j.id === jobId);
 
@@ -52,18 +54,26 @@ export default function InspectionResults() {
 			return;
 		}
 
+		let guaranteedFailIndex: number | null = null;
+		if (job.id === "1002" && !job.reworkCount) {
+			guaranteedFailIndex = Math.floor(Math.random() * job.bends.length);
+		}
 		// Generate new inspection results
-		const results: InspectionResult[] = job.bends.map((bend) => {
+		const results: InspectionResult[] = job.bends.map((bend, index) => {
 			// For demo, it can fail on the first try for an even job ID. it'll succeed on the rework
-			const shouldFail =
+			const baseFail =
 				job.id !== "1001" &&
 				Number(job.id) % 2 === 0 &&
 				!job.reworkCount &&
 				Math.random() > 0.5;
 
+			const shouldFail =
+				(job.id === "1002" && index === guaranteedFailIndex) || baseFail;
+
 			if (shouldFail) {
 				const deviation =
-					Number.parseFloat((Math.random() * 5).toFixed(2)) + 3.5;
+					(Number.parseFloat((Math.random() * 5).toFixed(2)) + 0.5) *
+					(Math.random() > 0.5 ? 1 : -1);
 				return {
 					bendPosition: bend.position,
 					expected: bend.angle,
@@ -74,7 +84,7 @@ export default function InspectionResults() {
 			}
 
 			// Random small deviation that still passes
-			const deviation = Math.random() * 0.7 - 0.35;
+			const deviation = Math.random() - 0.5;
 			return {
 				bendPosition: bend.position,
 				expected: bend.angle,
@@ -104,11 +114,13 @@ export default function InspectionResults() {
 	};
 
 	const handlePrintTag = () => {
+		setIsPrinted(false);
 		setIsPrinting(true);
 
 		// Simulate printing delay
 		setTimeout(() => {
 			setIsPrinting(false);
+			setIsPrinted(true);
 			toast({
 				title: "Tag Printed",
 				description: "Part tag has been printed successfully.",
@@ -198,6 +210,11 @@ export default function InspectionResults() {
 												<RotateCcw className="h-4 w-4 mr-2 animate-spin" />
 												Printing...
 											</>
+										) : isPrinted ? (
+											<>
+												<Check className="h-4 w-4 mr-2" />
+												Tag Printed
+											</>
 										) : (
 											<>
 												<Printer className="h-4 w-4 mr-2" />
@@ -251,7 +268,7 @@ export default function InspectionResults() {
 														</div>
 														<div className="text-right">
 															<div className="font-medium">
-																Δ {Math.abs(result.deviation).toFixed(2)}°
+																Δ {result.deviation.toFixed(2)}°
 															</div>
 															<div className="text-sm">
 																{result.pass ? "Within spec" : "Out of spec"}

@@ -150,7 +150,7 @@ export default function InspectionPending() {
 				if (tubeDetected) {
 					setDoorClosed(true);
 				}
-			}, 6000);
+			}, 3000);
 
 			// Randomly decide if this inspection should fail
 			// setFailInspection(Math.random() > 0.7);

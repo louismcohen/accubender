@@ -14,7 +14,7 @@ export default function JobDetails({ job }: JobDetailsProps) {
 			<CardHeader>
 				<CardTitle className="flex items-center justify-between">
 					<span>Job Details</span>
-					<Badge className={`job-priority-${job.priority}`}>
+					<Badge className={`job-priority-${job.priority} capitalize`}>
 						{job.priority}
 					</Badge>
 				</CardTitle>

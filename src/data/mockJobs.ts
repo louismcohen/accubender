@@ -28,9 +28,9 @@ export const mockJobs: Job[] = [
 		dueDate: "2025-06-18",
 		bends: [
 			{ position: 1, angle: 90, length: 300, type: "standard" },
-			{ position: 2, angle: 90, length: 250, type: "standard" },
-			{ position: 3, angle: 90, length: 200, type: "standard" },
-			{ position: 4, angle: 90, length: 150, type: "standard" },
+			{ position: 2, angle: 110, length: 250, type: "standard" },
+			{ position: 3, angle: 65, length: 200, type: "standard" },
+			{ position: 4, angle: 45, length: 150, type: "standard" },
 		],
 		notes: "Coolant line for engine block",
 	},
