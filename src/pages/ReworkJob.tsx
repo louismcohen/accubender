@@ -403,7 +403,7 @@ export default function ReworkJob() {
 							disabled={Object.keys(adjustments).length === 0}
 						>
 							<Wrench className="h-4 w-4 mr-2" />
-							Apply & Rebend
+							Apply & Bend New Tube
 						</Button>
 					</CardFooter>
 				</Card>

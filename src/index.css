@@ -110,15 +110,15 @@
 }
 
 .job-priority-normal {
-  @apply bg-blue-500;
+  @apply bg-blue-500 capitalize;
 }
 
 .job-priority-high {
-  @apply bg-amber-500;
+  @apply bg-amber-500 capitalize;
 }
 
 .job-priority-urgent {
-  @apply bg-red-500;
+  @apply bg-red-500 capitalize;
 }
 
 .inspection-pass {

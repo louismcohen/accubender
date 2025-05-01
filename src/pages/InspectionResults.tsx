@@ -54,8 +54,12 @@ export default function InspectionResults() {
 
 		// Generate new inspection results
 		const results: InspectionResult[] = job.bends.map((bend) => {
-			// For demo, we'll make one bend fail randomly if it's not first job
-			const shouldFail = job.id !== "1001" && Math.random() > 0.5;
+			// For demo, it can fail on the first try for an even job ID. it'll succeed on the rework
+			const shouldFail =
+				job.id !== "1001" &&
+				Number(job.id) % 2 === 0 &&
+				!job.reworkCount &&
+				Math.random() > 0.5;
 
 			if (shouldFail) {
 				const deviation =
