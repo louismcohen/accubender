@@ -119,10 +119,16 @@ export default function Dashboard() {
 										</Button>
 									</DropdownMenuTrigger>
 									<DropdownMenuContent align="end">
-										<DropdownMenuItem onClick={() => setSortBy("priority")}>
+										<DropdownMenuItem
+											onClick={() => setSortBy("priority")}
+											className="cursor-pointer"
+										>
 											Priority
 										</DropdownMenuItem>
-										<DropdownMenuItem onClick={() => setSortBy("dueDate")}>
+										<DropdownMenuItem
+											onClick={() => setSortBy("dueDate")}
+											className="cursor-pointer"
+										>
 											Due Date
 										</DropdownMenuItem>
 									</DropdownMenuContent>
