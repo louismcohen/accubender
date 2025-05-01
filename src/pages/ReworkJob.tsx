@@ -50,8 +50,6 @@ export default function ReworkJob() {
 
 	const job = jobs.find((j) => j.id === jobId);
 
-	console.log("rework", job);
-
 	// Generate AI suggestions
 	useEffect(() => {
 		if (!job) return;
@@ -95,15 +93,13 @@ export default function ReworkJob() {
 			});
 
 			// For demo, we're just applying some random adjustments
-			const newSuggestions: Record<string, number> = {};
-			job.bends.forEach((bend) => {
-				if (Math.random() > 0.7) {
-					const adjustment = (Math.random() * 3 - 1.5).toFixed(1);
-					newSuggestions[`bend-${bend.position}`] = parseFloat(adjustment);
-				}
-			});
-
-			setSuggestedAdjustments(newSuggestions);
+			const { adjustments, rationale } = generateMockReworkSuggestions(
+				job.material,
+				job.diameter,
+				failedResults,
+			);
+			setSuggestedAdjustments(adjustments);
+			setSuggestedRationale(rationale);
 		}, 3000);
 	};
 

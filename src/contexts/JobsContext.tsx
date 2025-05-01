@@ -80,7 +80,6 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 		success: boolean,
 		inspectionResults: InspectionResult[],
 	) => {
-		console.log("completeJob", { jobId, success });
 		setJobs((prev) =>
 			prev.map((job) =>
 				job.id === jobId
@@ -94,7 +93,6 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 		);
 
 		if (success) {
-			console.log("success toast");
 			toast({
 				title: "Job Completed",
 				description:
@@ -102,7 +100,6 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 				variant: "default",
 			});
 		} else {
-			console.log("fail toast");
 			toast({
 				title: "Inspection Failed",
 				description:
